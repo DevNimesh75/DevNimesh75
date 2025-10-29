@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base href="/DevNimesh75/">
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta content="Nimesh Portfolio - Flutter Developer Portfolio Website" name="description">
+  <meta name="theme-color" content="#000515">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta content="flutter_portfolio" name="apple-mobile-web-app-title">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+<!--  <link rel="icon" type="image/png" href="favicon.png"/>-->
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+  <title>Nimesh Portfolio</title>
+  <link rel="manifest" href="manifest.json">
+
+  <script>
+    // The value below is injected by flutter build, do not touch.
+    var serviceWorkerVersion = ""2792894019"";
+  </script>
+  <!-- This script adds the flutter initialization JS code -->
+  <script src="flutter_bootstrap.js" async></script>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #000515;
+      overflow: hidden;
+    }
+
+    /* Hide Flutter app with opacity to allow loading */
+    flutter-view,
+    flt-glass-pane {
+      opacity: 0 !important;
+      pointer-events: none !important;
+      transition: opacity 0.5s ease-out;
+    }
+
+    /* Show Flutter app when ready */
+    body.flutter-ready flutter-view,
+    body.flutter-ready flt-glass-pane {
+      opacity: 1 !important;
+      pointer-events: auto !important;
+    }
+
+    /* Ensure body can scroll when Flutter is ready */
+    body.flutter-ready {
+      overflow: auto !important;
+    }
+
+    #splash-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #000515;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 99999;
+      transition: opacity 0.8s ease-out;
+    }
+
+    #splash-screen.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Animated background particles */
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: floatParticle 3s ease-in-out infinite;
+    }
+
+    @keyframes floatParticle {
+      0%, 100% {
+        transform: translateY(0) scale(1);
+        opacity: 0.3;
+      }
+      50% {
+        transform: translateY(-25px) scale(1.2);
+        opacity: 0.7;
+      }
+    }
+
+    .splash-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+      animation: fadeInContent 0.8s ease-in forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeInContent {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    .image-container {
+      width: 120px;
+      height: 120px;
+      padding: 5px;
+      border-radius: 35px;
+      background: linear-gradient(135deg, #ff4081, #2196f3);
+      animation:
+        elasticScale 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards,
+        subtleRotate 2s ease-in-out infinite alternate,
+        pulseGlow 1.5s ease-in-out infinite alternate;
+      transform: scale(0.3);
+    }
+
+    @keyframes elasticScale {
+      0% {
+        transform: scale(0.3) rotate(0deg);
+      }
+      100% {
+        transform: scale(1) rotate(0deg);
+      }
+    }
+
+    @keyframes subtleRotate {
+      0% {
+        transform: scale(1) rotate(-3deg);
+      }
+      100% {
+        transform: scale(1) rotate(3deg);
+      }
+    }
+
+    @keyframes pulseGlow {
+      0% {
+        box-shadow:
+          -5px 0 30px rgba(255, 64, 129, 0.4),
+          5px 0 30px rgba(33, 150, 243, 0.4);
+      }
+      100% {
+        box-shadow:
+          -5px 0 50px rgba(255, 64, 129, 0.8),
+          5px 0 50px rgba(33, 150, 243, 0.8);
+      }
+    }
+
+    .image-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 30px;
+      background-color: #000000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .image-inner img {
+      width: 90%;
+      height: 90%;
+      object-fit: cover;
+    }
+
+    .loading-container {
+      width: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      animation: slideUpContent 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.3s forwards;
+      transform: translateY(50px);
+      opacity: 0;
+    }
+
+    @keyframes slideUpContent {
+      from {
+        transform: translateY(50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 4px;
+      background-color: #000000;
+      border-radius: 2px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #7c4dff, #ff4081);
+      width: 0%;
+      transition: width 0.1s linear;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .progress-fill::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.3) 50%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      animation: shimmer 1s infinite;
+    }
+
+    @keyframes shimmer {
+      0% {
+        transform: translateX(-100%);
+      }
+      100% {
+        transform: translateX(100%);
+      }
+    }
+
+    .percentage-text {
+      color: white;
+      font-weight: bold;
+      font-size: 14px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      text-shadow:
+        2px 2px 10px rgba(255, 64, 129, 0.8),
+        -2px -2px 10px rgba(33, 150, 243, 0.8);
+      animation: textPulse 1s ease-in-out infinite alternate;
+    }
+
+    @keyframes textPulse {
+      0% {
+        transform: scale(1);
+      }
+      100% {
+        transform: scale(1.05);
+      }
+    }
+  </style>
+</head>
+<body style="background-color: #000515;">
+<div id="splash-screen">
+  <div class="splash-content">
+    <div class="image-container">
+      <div class="image-inner">
+        <img alt="Logo" src="assets/assets/images/image.png">
+      </div>
+    </div>
+    <div class="loading-container">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <div class="percentage-text" id="percentage-text">0%</div>
+    </div>
+  </div>
+</div>
+  <script>
+    // Wait for DOM to be ready
+    (function() {
+      'use strict';
+
+      console.log('Splash screen script starting...');
+
+      // Create animated background particles
+      function createParticles() {
+        const splashScreen = document.getElementById('splash-screen');
+        if (!splashScreen) {
+          console.error('Splash screen element not found!');
+          return;
+        }
+
+        const particleCount = 20;
+        for (let i = 0; i < particleCount; i++) {
+          const particle = document.createElement('div');
+          particle.className = 'particle';
+
+          // Random properties
+          const size = 2 + Math.random() * 4;
+          const left = Math.random() * 100;
+          const top = Math.random() * 100;
+          const color = Math.random() > 0.5 ? 'rgba(255, 64, 129, 0.4)' : 'rgba(33, 150, 243, 0.4)';
+          const delay = i * 0.1;
+          const duration = 2 + Math.random() * 2;
+
+          particle.style.width = size + 'px';
+          particle.style.height = size + 'px';
+          particle.style.left = left + '%';
+          particle.style.top = top + '%';
+          particle.style.backgroundColor = color;
+          particle.style.boxShadow = '0 0 10px ' + color;
+          particle.style.animationDelay = delay + 's';
+          particle.style.animationDuration = duration + 's';
+
+          splashScreen.appendChild(particle);
+        }
+        console.log('Particles created');
+      }
+
+      // Create particles immediately
+      createParticles();
+
+      // Animate the loading progress bar
+      let progress = 0;
+      const progressFill = document.getElementById('progress-fill');
+      const percentageText = document.getElementById('percentage-text');
+      let splashHidden = false;
+      let flutterReady = false;
+
+      if (!progressFill || !percentageText) {
+        console.error('Progress elements not found!');
+        console.log('progressFill:', progressFill);
+        console.log('percentageText:', percentageText);
+      } else {
+        console.log('Starting progress animation...');
+      }
+
+      const progressInterval = setInterval(function() {
+        if (progress < 100) {
+          progress += 1;
+          if (progressFill) progressFill.style.width = progress + '%';
+          if (percentageText) percentageText.textContent = progress + '%';
+        } else {
+          clearInterval(progressInterval);
+          console.log('Progress complete');
+        }
+      }, 20); // 2 seconds total (100 * 20ms)
+
+      // Function to hide splash screen
+      function hideSplashScreen() {
+        if (splashHidden) return;
+        splashHidden = true;
+        console.log('Hiding splash screen...');
+
+        const splashScreen = document.getElementById('splash-screen');
+        if (splashScreen) {
+          // Mark body as flutter-ready to show the app
+          document.body.classList.add('flutter-ready');
+          document.body.style.overflow = 'auto';
+
+          // Fade out splash
+          splashScreen.classList.add('fade-out');
+          setTimeout(function() {
+            splashScreen.remove();
+            console.log('Splash screen removed');
+          }, 800);
+        }
+      }
+
+      // Detect when Flutter has rendered by checking for flutter-view element
+      function checkFlutterReady() {
+        const flutterView = document.querySelector('flutter-view');
+        const flutterGlassPane = document.querySelector('flt-glass-pane');
+
+        if (flutterView && flutterGlassPane) {
+          console.log('Flutter view detected, app is ready');
+          flutterReady = true;
+
+          // Wait a bit to ensure Flutter has fully painted
+          setTimeout(function() {
+            hideSplashScreen();
+          }, 500);
+        } else {
+          // Check again in 100ms
+          setTimeout(checkFlutterReady, 100);
+        }
+      }
+
+      // Start checking for Flutter after progress completes
+      setTimeout(function() {
+        console.log('Starting to check for Flutter...');
+        checkFlutterReady();
+      }, 2000);
+
+      // Fallback: hide splash after 8 seconds even if Flutter doesn't load
+      setTimeout(function() {
+        if (!splashHidden) {
+          console.warn('Flutter took too long to load, hiding splash screen anyway');
+          hideSplashScreen();
+        }
+      }, 8000);
+
+    })(); // End of IIFE
+  </script>
+</body>
+</html>
